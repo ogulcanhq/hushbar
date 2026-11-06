@@ -1,0 +1,12 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSAudioCaptureUsageDescription" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hushbar processes each app's audio to change its volume. Audio is never saved or sent anywhere." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Hushbar, uygulamaların ses seviyesini değiştirmek için seslerini işler. Ses hiçbir zaman kaydedilmez veya bir yere gönderilmez." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

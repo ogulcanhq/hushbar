@@ -6,6 +6,7 @@ let package = Package(
     platforms: [.macOS("14.2")],
     targets: [
         .target(name: "CHushbarDSP"),
+        .executableTarget(name: "Hushbar", dependencies: ["CHushbarDSP"]),
         .testTarget(name: "CHushbarDSPTests", dependencies: ["CHushbarDSP"]),
     ]
 )

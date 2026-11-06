@@ -1,0 +1,20 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ volume" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "%@ ses seviyesi" } } } },
+    "Couldn't control %@'s audio: %@" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "%1$@ uygulamasının sesi denetlenemedi: %2$@" } } } },
+    "Launch at login" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Girişte başlat" } } } },
+    "Mute" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sessize al" } } } },
+    "Mute %@" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "%@ sessize al" } } } },
+    "Muting works, but volume control needs the System Audio Recording permission." : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sessize alma çalışır, ancak ses seviyesi ayarı için “Sistem Sesi Kaydı” izni gerekiyor." } } } },
+    "No apps are using audio right now." : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Şu anda ses kullanan uygulama yok." } } } },
+    "Open System Settings" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sistem Ayarları’nı Aç" } } } },
+    "Process %lld" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "İşlem %lld" } } } },
+    "Quit" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Çıkış" } } } },
+    "Reset" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sıfırla" } } } },
+    "Unmute" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Sesi aç" } } } },
+    "Unmute %@" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "%@ sesini aç" } } } },
+    "Volume Mixer" : { "localizations" : { "tr" : { "stringUnit" : { "state" : "translated", "value" : "Ses Karıştırıcı" } } } }
+  },
+  "version" : "1.0"
+}
