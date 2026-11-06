@@ -8,5 +8,6 @@ let package = Package(
         .target(name: "CHushbarDSP"),
         .executableTarget(name: "Hushbar", dependencies: ["CHushbarDSP"]),
         .testTarget(name: "CHushbarDSPTests", dependencies: ["CHushbarDSP"]),
+        .testTarget(name: "HushbarTests", dependencies: ["Hushbar"]),
     ]
 )
