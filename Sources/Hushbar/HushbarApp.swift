@@ -3,7 +3,9 @@ import SwiftUI
 @main
 enum Entry {
     static func main() {
+        #if HUSHBAR_DIAGNOSTICS
         if Diagnostics.runIfRequested() { return }
+        #endif
         HushbarApp.main()
     }
 }

@@ -1,9 +1,12 @@
+#if HUSHBAR_DIAGNOSTICS
 import AppKit
 import CoreAudio
 import Darwin
 import SwiftUI
 
-/// Command-line checks for the audio path, with no UI involved.
+/// Command-line checks for the audio path, with no UI involved. Compiled only into
+/// `build.sh --diagnostics` builds, because they would otherwise let any local program
+/// use this app's audio permission and control other apps' volume.
 ///
 ///     Hushbar --list                      audio processes and the app each resolves to
 ///     Hushbar --probe <pid> <gain> <sec>  route one process and print its levels each second
@@ -18,8 +21,9 @@ enum Diagnostics {
             list()
         case "--probe":
             guard arguments.count == 5, let pid = pid_t(arguments[2]),
-                  let gain = Float(arguments[3]), let seconds = Int(arguments[4]) else {
-                print("usage: --probe <pid> <gain> <seconds>")
+                  let gain = Float(arguments[3]), (0...1).contains(gain),
+                  let seconds = Int(arguments[4]) else {
+                print("usage: --probe <pid> <gain 0-1> <seconds>")
                 return true
             }
             probe(pid: pid, gain: gain, seconds: seconds)
@@ -126,3 +130,4 @@ enum Diagnostics {
         }
     }
 }
+#endif

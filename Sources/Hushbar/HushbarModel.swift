@@ -29,10 +29,12 @@ final class HushbarModel: ObservableObject {
     private var isRequestingPermission = false
     private var routeCheckTimer: Timer?
 
+    #if HUSHBAR_DIAGNOSTICS
     /// A model with fixed rows and no audio, for rendering the UI.
     init(previewRows: [AppRow]) {
         rows = previewRows
     }
+    #endif
 
     init() {
         if let data = UserDefaults.standard.data(forKey: Self.settingsKey),
@@ -69,9 +71,11 @@ final class HushbarModel: ObservableObject {
         }
     }
 
+    #if HUSHBAR_DIAGNOSTICS
     var routeLevels: [(input: Float, output: Float)] {
         routes.values.map { ($0.inputPeak, $0.outputPeak) }
     }
+    #endif
 
     /// Core Audio delivers listener callbacks on the main queue, as requested in `PropertyListener`.
     private nonisolated func onMain(_ body: @MainActor (HushbarModel) -> Void) {

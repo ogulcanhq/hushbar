@@ -10,7 +10,7 @@ app on its own, with no audio driver to install.
 
 <img src="docs/screenshot.png" width="340" alt="Hushbar's menu listing four apps, each with a volume slider, a percentage and a mute button. One app is muted and one is lowered to 45%.">
 
-<sub>Rendered with sample data by `Hushbar --snapshot`.</sub>
+<sub>Rendered with sample data by the `--snapshot` diagnostic.</sub>
 
 ## Features
 
@@ -70,7 +70,7 @@ them when it exits.
 | `Sources/Hushbar/ProcessRoute.swift` | One process's tap, aggregate device and audio callback |
 | `Sources/Hushbar/HushbarModel.swift` | Tracks processes and output changes, reconciles routes |
 | `Sources/Hushbar/AppIdentity.swift` | Maps an audio process to the app the user recognizes |
-| `Sources/Hushbar/Diagnostics.swift` | Command-line checks of the audio path |
+| `Sources/Hushbar/Diagnostics.swift` | Command-line checks of the audio path, in diagnostic builds only |
 
 ### Design decisions
 
@@ -110,6 +110,7 @@ The audio path needs real hardware and the permission, so `--probe` measures it 
 one process and prints peak levels before and after gain:
 
 ```sh
+./scripts/build.sh --diagnostics
 afplay -v 0.03 tone.wav &
 open -W -n build/Hushbar.app --stdout /tmp/out.txt --args --probe $! 0.25 3
 ```
@@ -123,6 +124,11 @@ Measured with a test tone on macOS 26.5, Apple silicon, built-in speakers:
 
 `--list` shows audio processes and the app each resolves to, and `--rows <seconds>` prints the menu's
 rows live. Run these through `open` as above, since macOS grants the permission to the app bundle.
+
+These commands exist only in diagnostic builds. In a normal build they would let any local program
+use the app's audio permission and change other apps' volume, so they are compiled out, and the
+build script refuses to install a diagnostic build. Normal builds also enable the hardened runtime,
+which stops other programs injecting code to borrow the permission.
 
 ## Limitations
 
