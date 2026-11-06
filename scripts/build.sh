@@ -1,8 +1,10 @@
 #!/bin/zsh
 # Builds build/Hushbar.app.
 #   --install      also copy it to /Applications
-#   --diagnostics  include the --probe, --list, --rows and --snapshot commands. These let
-#                  any local program use the app's audio permission, so never install one.
+#   --diagnostics  build build/Hushbar-Diagnostics.app instead, with the --probe, --list,
+#                  --rows and --snapshot commands. These let any local program use the app's
+#                  audio permission, so it gets its own bundle ID and an ad-hoc signature:
+#                  it never inherits the permission granted to Hushbar, and asks for its own.
 #
 # The app gets an ad-hoc signature, which changes every build, so macOS asks for the
 # audio permission again after each rebuild. To keep it, sign with your own identity:
@@ -24,15 +26,23 @@ if [[ "$install" == true && ${#swift_flags[@]} -gt 0 ]]; then
     echo "--install and --diagnostics can't be combined" >&2
     exit 1
 fi
+if [[ ${#swift_flags[@]} -gt 0 && -n "${HUSHBAR_SIGN_IDENTITY:-}" ]]; then
+    echo "--diagnostics builds are always ad-hoc signed; unset HUSHBAR_SIGN_IDENTITY" >&2
+    exit 1
+fi
 
 swift build -c release "${swift_flags[@]}"
 binary="$(swift build -c release "${swift_flags[@]}" --show-bin-path)/Hushbar"
 
 app=build/Hushbar.app
+[[ ${#swift_flags[@]} -gt 0 ]] && app=build/Hushbar-Diagnostics.app
 rm -rf "$app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$binary" "$app/Contents/MacOS/Hushbar"
 cp Resources/Info.plist "$app/Contents/Info.plist"
+if [[ ${#swift_flags[@]} -gt 0 ]]; then
+    plutil -replace CFBundleIdentifier -string com.ogulcanhq.hushbar.diagnostics "$app/Contents/Info.plist"
+fi
 cp Resources/AppIcon.icns "$app/Contents/Resources/AppIcon.icns"
 for catalog in Resources/*.xcstrings; do
     xcrun xcstringstool compile "$catalog" --output-directory "$app/Contents/Resources"

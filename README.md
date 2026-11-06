@@ -112,7 +112,7 @@ one process and prints peak levels before and after gain:
 ```sh
 ./scripts/build.sh --diagnostics
 afplay -v 0.03 tone.wav &
-open -W -n build/Hushbar.app --stdout /tmp/out.txt --args --probe $! 0.25 3
+open -W -n build/Hushbar-Diagnostics.app --stdout /tmp/out.txt --args --probe $! 0.25 3
 ```
 
 Measured with a test tone on macOS 26.5, Apple silicon, built-in speakers:
@@ -126,9 +126,10 @@ Measured with a test tone on macOS 26.5, Apple silicon, built-in speakers:
 rows live. Run these through `open` as above, since macOS grants the permission to the app bundle.
 
 These commands exist only in diagnostic builds. In a normal build they would let any local program
-use the app's audio permission and change other apps' volume, so they are compiled out, and the
-build script refuses to install a diagnostic build. Normal builds also enable the hardened runtime,
-which stops other programs injecting code to borrow the permission.
+use the app's audio permission and change other apps' volume, so they are compiled out. A diagnostic
+build is a separate app with its own bundle ID and an ad-hoc signature, so it never inherits Hushbar's
+permission and asks for its own, and the build script refuses to install one. All builds enable the
+hardened runtime, which stops other programs injecting code to borrow the permission.
 
 ## Limitations
 
